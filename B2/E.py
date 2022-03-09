@@ -1,0 +1,5 @@
+f = open('input.txt', 'r')
+n = int(f.readline())
+mas = sorted(map(int, f.readline().split()))
+print(sum(mas[0:-1]))
+f.close()
