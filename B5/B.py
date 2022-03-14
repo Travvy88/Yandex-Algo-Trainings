@@ -1,28 +1,23 @@
 f = open('input.txt', 'r')
-n = map(int, f.readline())
-mas = list(map(int, f.readline().split()))
+n = int(f.readline())
+array = list(map(int, f.readline().split()))
 
 
-def createprefixsum(mas):
-    prefix = [0] * (len(mas) + 1)
-    for i in range(1, len(prefix)):
-        prefix[i] = prefix[i-1] + mas[i-1]
-    return prefix
+pref_sums = [0] * (n + 1)
+max_pref_sum_i = 0
+min_pref_sum_i = 0
+max_sum = array[0]
 
+for i in range(1, n + 1):
+    pref_sums[i] = pref_sums[i - 1] + array[i - 1]
 
-def findsum(l, r, prefix):
-    return prefix[r + 1] - prefix[l]
+    if pref_sums[i - 1] < pref_sums[min_pref_sum_i]:
+        min_pref_sum_i = (i - 1)
 
+    cur_sum = pref_sums[i] - pref_sums[min_pref_sum_i]
+    if max_sum < cur_sum:
+        max_sum = cur_sum
+        max_pref_sum_i = i
 
-maxsum = mas[0]
-prefixsum = createprefixsum(mas)
-print(mas)
-print(prefixsum)
-
-
-for l in range(len(prefixsum)):
-    for r in range(l, len(prefixsum) - 1):
-        maxsum = max(maxsum, findsum(l, r, prefixsum))
-
-print(maxsum)
+print(max_sum)
 f.close()

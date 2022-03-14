@@ -1,15 +1,22 @@
 f = open('input.txt', 'r')
-s = f.readline()
-first = 0
-second = 0
+s = f.readline().strip()
 
-while first < len(s) and second < len(s):
-    if s[first] == '(' and s[second] == ')':
-        first += 1
-        second += 1
-    elif s[first] == '(' and s[second] != ')':
-        second += 1
-    elif s[first] != '(' and s[second] == ')':
-        first += 1
 
+def check(s):
+    summa = 0
+    for ch in s:
+        if ch == '(':
+            summa += 1
+        else:
+            summa -= 1
+
+        if summa < 0:
+            return 'NO'
+    if summa == 0:
+        return 'YES'
+    else:
+        return 'NO'
+
+
+print(check(s))
 f.close()
